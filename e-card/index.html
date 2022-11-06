@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    </head>
+<body>
+
+
+
+<div class="d-flex justify-content-center p-5">
+    <div id="name" class="text-primary fs-1 fw-bold">Hi</div>
+</div>
+
+<div class="container text-center">
+    <div class="row">
+      <div class="col">
+      </div>
+      <div class="col-8">
+        <p class="text-muted">Hello everyone!</p>
+      </div>
+      <div class="col">
+      </div>
+    </div>
+  </div>
+
+
+<div class="d-flex justify-content-around mt-4 bg-dark p-2" style="--bs-bg-opacity: .2;">
+    <button onclick="getPost()" type="button" class="btn btn-info">Get Program Content</button>
+    <button onclick="showImage()" type="button" class="btn btn-danger">Show images</button>
+</div>
+
+
+
+
+<ol class="list-group list-group-numbered" id="programsListed"></ol>
+
+<div id="dogImages" class="d-flex justify-content-around flex-wrap"></div>
+
+<script>
+var i = 0;
+
+var getPost = async function () {
+// Get the post data
+
+    if(i == 0) {
+        var postResp = await fetch('https://mszucseducation.github.io/data/data.json');
+        var post = await postResp.json();
+        console.log(post);
+        console.log(post.person.firstName);
+        console.log(post.person.lastName);
+
+        var firstName = capitalizationFormatting(post.person.firstName);
+        var lastName = capitalizationFormatting(post.person.lastName);
+        document.getElementById("name").innerHTML = "Hi " + firstName + " " + lastName;
+
+        showPrograms(post)
+    } else {
+        //
+    }
+    
+    i++;
+};
+
+function capitalizationFormatting(text) {
+    return text.charAt(0).toUpperCase() + text.slice(1);
+}
+
+
+function showPrograms(data) {
+
+        data.study.programs.map((program) => {
+        document.getElementById("programsListed").innerHTML +=  "<li class='list-group-item'>" + program +"</li>";
+    });
+}
+
+function showImage() {
+    var img = document.createElement("img");
+    img.src = "Images/dog.png"; 
+    img.height = 100; 
+    img.width = 100;
+
+    //optionally set a css class on the image
+    var class_name = "dog";
+    img.setAttribute("class", class_name);
+
+    document.getElementById("dogImages").appendChild(img);
+}
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+
+</body>
+</html>

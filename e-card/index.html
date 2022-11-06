@@ -67,7 +67,6 @@ function capitalizationFormatting(text) {
 
 
 function showPrograms(data) {
-
         data.study.programs.map((program) => {
         document.getElementById("programsListed").innerHTML +=  "<li class='list-group-item'>" + program +"</li>";
     });
@@ -84,6 +83,7 @@ function showImage() {
     img.setAttribute("class", class_name);
 
     document.getElementById("dogImages").appendChild(img);
+    alert("image added");
 }
 
 </script>
